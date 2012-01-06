@@ -35,7 +35,7 @@ namespace Sokoban
                                     "# . #$###\n" +
                                     "##$.  #\n" +
                                     " #  ###\n" +
-                                    " ####";//\n ####";
+                                    " ####";
 
         SokobanLogic.Board _board = new SokobanLogic.Board();
         public MainWindow()
