@@ -1,0 +1,69 @@
+﻿<Window x:Class="Sokoban.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:Sokoban"
+        Title="Sokoban" Height="350" Width="525">
+    <Window.Resources>
+        <GeometryDrawing x:Key="DrawingPlace" Brush="LightGreen">
+            <GeometryDrawing.Geometry>
+                <RectangleGeometry Rect="0,0,20,20"/>
+            </GeometryDrawing.Geometry>
+        </GeometryDrawing>
+        <GeometryDrawing x:Key="DrawingBox" Brush="Gold">
+            <GeometryDrawing.Geometry>
+                <EllipseGeometry Center="10,10" RadiusX="8" RadiusY="8"/>
+            </GeometryDrawing.Geometry>
+        </GeometryDrawing>
+        <GeometryDrawing x:Key="DrawingBuddy" Brush="Red">
+            <GeometryDrawing.Geometry>
+                <StreamGeometry>F1 M10,0 L15,20 L0,5 L20,5 L5,20 Z</StreamGeometry>
+            </GeometryDrawing.Geometry>
+        </GeometryDrawing>
+        <DrawingBrush x:Key="BrushBox" Stretch="None" Drawing="{StaticResource DrawingBox}"/>
+        <DrawingBrush x:Key="BrushBoxInPlace" Stretch="None">
+            <DrawingBrush.Drawing>
+                <DrawingGroup>
+                    <StaticResource ResourceKey="DrawingPlace"/>
+                    <StaticResource ResourceKey="DrawingBox"/>
+                </DrawingGroup>
+            </DrawingBrush.Drawing>
+        </DrawingBrush>
+        <DrawingBrush x:Key="BrushBuddy" Stretch="None" Drawing="{StaticResource DrawingBuddy}"/>
+        <DrawingBrush x:Key="BrushBuddyInPlace" Stretch="None">
+            <DrawingBrush.Drawing>
+                <DrawingGroup>
+                    <StaticResource ResourceKey="DrawingPlace"/>
+                    <StaticResource ResourceKey="DrawingBuddy"/>
+                </DrawingGroup>
+            </DrawingBrush.Drawing>
+        </DrawingBrush>
+        <local:CellTypeConverter x:Key="CTC" BrushBox="{StaticResource BrushBox}" BrushBoxInPlace="{StaticResource BrushBoxInPlace}" BrushBuddy="{StaticResource BrushBuddy}" BrushBuddyInPlace="{StaticResource BrushBuddyInPlace}"/>
+    </Window.Resources>
+    <DockPanel>
+        <Menu DockPanel.Dock="Top">
+            <MenuItem Header="Load"/>
+            <MenuItem Header="Solve" Click="Solve_Click"/>
+        </Menu>
+        <StatusBar DockPanel.Dock="Bottom">
+            <StatusBarItem DockPanel.Dock="Right">
+                <TextBlock TextAlignment="Right" Text="{Binding Moves, StringFormat='Moves: {0}'}"/>
+            </StatusBarItem>
+            <Separator DockPanel.Dock="Right"/>
+            <StatusBarItem DockPanel.Dock="Left">
+                <TextBlock/>
+            </StatusBarItem>
+        </StatusBar>
+        <ItemsControl Name="__Board" ItemsSource="{Binding Cells}" HorizontalAlignment="Left" VerticalAlignment="Top">
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <Rectangle Width="20" Height="20" Fill="{Binding Path=., Converter={StaticResource CTC}}" SnapsToDevicePixels="True"/>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <UniformGrid Rows="{Binding Height}" Columns="{Binding Width}" SnapsToDevicePixels="True"/>
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+        </ItemsControl>
+    </DockPanel>
+</Window>

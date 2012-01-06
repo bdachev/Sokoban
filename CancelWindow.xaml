@@ -1,0 +1,13 @@
+﻿<Window
+    x:Class="Sokoban.CancelWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    Title="{Binding Tag, StringFormat='Iterations: {0}', RelativeSource={RelativeSource Self}}"
+    WindowStartupLocation="CenterOwner"
+    ResizeMode="NoResize"
+    SizeToContent="WidthAndHeight">
+    <StackPanel Margin="3">
+        <TextBlock Text="Press button to cancel solution process" Margin="3"/>
+        <Button HorizontalAlignment="Center" Margin="3" Padding="10,0" IsCancel="True">Cancel</Button>
+    </StackPanel>
+</Window>
